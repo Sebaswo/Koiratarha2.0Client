@@ -212,7 +212,8 @@ function updateLocations(btnChoice: String) {
 
 function success2(pos: GeolocationPosition) {
   map.eachLayer((layer) => {
-    if (layer/*['_latlng']*/!= undefined)
+    console.log("XXTEST", layer)
+    if (layer['_latlng'] != undefined)
       layer.remove();
   });
   layerGroup.clearLayers();
