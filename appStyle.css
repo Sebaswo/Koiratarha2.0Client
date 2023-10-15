@@ -128,16 +128,16 @@ button:hover {
     justify-content: center;
 }
 
-#textsOfPage {
+#textsOfPage, #notifications, #placeInfoGroup {
     display: flex;
     flex-wrap: wrap;
     background: #EDDCD2;
     margin: 20px;
     border-radius: 20px;
-    min-width: 420px;
+    min-width: 220px;
 }
 
-#radioGroupGroup, #placeInfoGroup {
+#radioGroupGroup, #placeInfoGroup, #notifications {
     padding: 20px 40px 0 40px;
     text-align: left;
 }
