@@ -24,14 +24,10 @@ const apiURL = import.meta.env.VITE_API_URL;
 const user: User = {};
 
 // notification handling
-const addNotificationBtn = document.querySelector(
-  "#addNotification"
-) as HTMLButtonElement;
-const removeNotificationBtn = document.querySelector(
-  "#removeNotification"
-) as HTMLButtonElement;
+const addNotificationBtn = document.querySelector("#addNotification");
+const removeNotificationBtn = document.querySelector("#removeNotification");
 
-addNotificationBtn.addEventListener("click", async () => {
+addNotificationBtn!.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   const userId = user.id;
   const locName = document.querySelector("#name") as HTMLElement;
@@ -64,7 +60,7 @@ addNotificationBtn.addEventListener("click", async () => {
   }
 });
 
-removeNotificationBtn.addEventListener("click", async () => {
+removeNotificationBtn!.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   const userId = user.id;
 
@@ -93,12 +89,12 @@ removeNotificationBtn.addEventListener("click", async () => {
 });
 
 // favourite location handling
-const favouriteButton = document.querySelector("#faveBtn") as HTMLButtonElement;
-const locName = document.querySelector("#name") as HTMLElement;
-const locAddress = document.querySelector("#address") as HTMLElement;
-const locCity = document.querySelector("#city") as HTMLElement;
+const favouriteButton = document.querySelector("#faveBtn");
+const locName = document.querySelector("#name");
+const locAddress = document.querySelector("#address");
+const locCity = document.querySelector("#city");
 
-favouriteButton.addEventListener("click", async () => {
+favouriteButton!.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   const userId = user.id;
 
@@ -126,11 +122,9 @@ favouriteButton.addEventListener("click", async () => {
   }
 });
 
-const removeFaveButton = document.querySelector(
-  "#removeFaveBtn"
-) as HTMLButtonElement;
+const removeFaveButton = document.querySelector("#removeFaveBtn");
 
-removeFaveButton.addEventListener("click", async () => {
+removeFaveButton!.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   const userId = user.id;
 
