@@ -100,7 +100,7 @@ button {
     font-family: inherit;
 }
 
-#loginButton {
+#loginButton, #registerButton {
     background: #B7B7A4;
     color: black;
     display: block;

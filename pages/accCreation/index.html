@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Koiratarha - Käyttäjän luonti</title>
-    <link href="appStyle.css" rel="stylesheet">
+    <link href="../../appStyle.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&family=Raleway&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
                     <input type="password" id="password" name="password" placeholder="Salasana">
                 </div>
                 <div class="row p-4">
-                    <button type="submit" id="loginButton" onclick="login()">Rekisteröidy</button>
+                    <button type="submit" id="registerButton" onclick="login()">Rekisteröidy</button>
                 </div>
             </div>
         </div>
@@ -42,9 +42,11 @@
 
     <script>
         function login() {
-            location.href = "dogPark.html";
+            location.href = "../../pages/dogPark/index.html";
+            console.log("Testi")
         }
     </script>
+    <script type="text/typescript" src="src/main.ts"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
