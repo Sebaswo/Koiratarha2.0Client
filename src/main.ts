@@ -26,6 +26,7 @@ import {
   ClientToServerEvents,
   ServerToClientEvents,
 } from "./interfaces/ISocket";
+import { Credentials } from "./interfaces/Credentials";
 
 // Global variables
 const apiURL = import.meta.env.VITE_API_URL;
