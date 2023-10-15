@@ -1,6 +1,6 @@
 interface User {
   id?: string;
-  user_name?: string;
+  username?: string;
   token?: string;
 }
 
