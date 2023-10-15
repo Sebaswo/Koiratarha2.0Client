@@ -1,6 +1,7 @@
 import * as L from 'leaflet';
 import {Coordinates, PointOfInterest} from '../interfaces/Coordinates';
 
+let btnChoice: String;
 const map = L.map('map').setView([60.172659, 24.926596], 11);
 
 // Use the leaflet.js library to show the location on the map (https://leafletjs.com/)
@@ -10,6 +11,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 let layerGroup = L.layerGroup();
+const markerGroup = new L.LayerGroup();
 
 document.addEventListener('DOMContentLoaded', () => {
   function success(pos: GeolocationPosition) {
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     map.setView([crd.latitude, crd.longitude], 13);
 
     const ownLocation = addMarker(crd, 'Olen tässä!');
-    ownLocation.openPopup();
+    
 
     getLocations(crd).then(function(pointsOfInterest) {
       for (let i = 0; i < pointsOfInterest.length; i++) {
@@ -50,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
               });
         });
       }
+      map.addLayer(markerGroup)
+      ownLocation.openPopup();
     });
 
     function getLocations(crd: Coordinates): Promise<PointOfInterest[]> {
@@ -76,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const options: PositionOptions = {
     enableHighAccuracy: true,
-    timeout: 5000,
+    timeout: 10000,
     maximumAge: 0,
   };
 
@@ -86,10 +90,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navigator.geolocation.getCurrentPosition(success, error, options);
 
-  function addMarker(crd: Coordinates, text: string): L.Marker {
-    return L.marker([crd.latitude, crd.longitude]).addTo(map).bindPopup(text);
+  const placeChoiceBtn = document.querySelector('#submitBtn');
+  const radioButtons = document.querySelectorAll<HTMLInputElement>('input[name="place"]');
+  placeChoiceBtn!.addEventListener('click', () => {
+  let selectedPlace;
+  for (const radioButton of radioButtons) {
+    if (radioButton.checked) {
+      selectedPlace = radioButton.value;
+      break;
+    }
+  }
+  if (selectedPlace === 'enclosure') {
+    btnChoice = '317';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
+  } else if (selectedPlace === 'trail') {
+    btnChoice = '318';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
+  } else if (selectedPlace === 'toilet') {
+    btnChoice = '319';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
+  } else if (selectedPlace === 'forest') {
+    btnChoice = '320';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
+  } else if (selectedPlace === 'beach') {
+    btnChoice = '321';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
+  } else {
+    btnChoice = '317+318+319+320+321+322+323';
+    navigator.geolocation.getCurrentPosition(success2, error, options);
   }
 });
+});
+
+function addMarker(crd: Coordinates, text: string): L.Marker {
+  return L.marker([crd.latitude, crd.longitude]).addTo(markerGroup).bindPopup(text);
+}
 
 function getRoute(lahto: Coordinates, kohde: Coordinates) {
   layerGroup.clearLayers();
@@ -161,5 +196,62 @@ function getRoute(lahto: Coordinates, kohde: Coordinates) {
         [[lahto.latitude, lahto.longitude], [kohde.latitude, kohde.longitude]]);
   }).catch(function(e) {
     console.error(e.message);
+  });
+}
+
+function updateLocations(btnChoice: String) {
+  const url = `https://www.hel.fi/palvelukarttaws/rest/v4/unit/?ontologyword=${btnChoice}`;
+  return fetch(url).then(function(response) {
+    return response.json();
+  }).then(function(pointsOfInterest) {
+    console.log(pointsOfInterest);
+    return pointsOfInterest;
+  });
+}
+
+function success2(pos: GeolocationPosition) {
+  map.eachLayer((layer) => {
+    if (layer['_latlng']!= undefined)
+      layer.remove();
+  });
+  layerGroup.clearLayers();
+  const crd = pos.coords;
+  console.log(crd);
+
+  map.setView([crd.latitude, crd.longitude], 11);
+
+  //lisätään oman sijainnin marker
+  const ownLocation = addMarker(crd, 'Olen tässä!');
+  ownLocation.openPopup();
+
+  //lisätään markerit kohdepaikoille
+  updateLocations(btnChoice).then(function(pointsOfInterest) {
+    for (let i = 0; i < pointsOfInterest.length; i++) {
+      const placeName = pointsOfInterest[i].name_fi;
+      const coordinates = {
+        latitude: pointsOfInterest[i].latitude,
+        longitude: pointsOfInterest[i].longitude,
+      };
+      const marker = addMarker(coordinates, placeName);
+      //haetaan tiedot yhdestä pisteestä ja reitti sinne
+      marker.on('click', function() {
+        document.querySelector('#name')!.innerHTML = pointsOfInterest[i].name_fi;
+        document.querySelector(
+            '#address')!.innerHTML = pointsOfInterest[i].street_address_fi;
+        document.querySelector(
+            '#city')!.innerHTML = pointsOfInterest[i].address_city_fi;
+        const targetCrd = {
+          latitude: pointsOfInterest[i].latitude,
+          longitude: pointsOfInterest[i].longitude,
+        };
+        const button = document.querySelector('#navigationBtn');
+        button!.replaceWith(button!.cloneNode(true));
+        document.querySelector('#navigationBtn')!.
+            addEventListener('click', function() {
+              console.log('Klikattu!');
+              getRoute(crd, targetCrd);
+            });
+      });
+    }
   });
 }
