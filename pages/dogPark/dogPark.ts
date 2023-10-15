@@ -30,8 +30,8 @@ const removeNotificationBtn = document.querySelector("#removeNotification");
 addNotificationBtn!.addEventListener("click", async () => {
   const token = localStorage.getItem("token");
   const userId = user.id;
-  const locName = document.querySelector("#name") as HTMLElement;
-  const time = document.querySelector("#time") as HTMLElement;
+  const locName = document.querySelector("#name");
+  const time = document.querySelector("#time");
 
   try {
     const notificationId = await doGraphQLFetch(
@@ -49,8 +49,8 @@ addNotificationBtn!.addEventListener("click", async () => {
         token!
       );
       console.log(notification);
-      document.querySelector("#place1")!.innerHTML = locName.innerHTML;
-      document.querySelector("#place2")!.innerHTML = time.innerHTML;
+      document.querySelector("#place1")!.innerHTML = locName!.innerHTML;
+      document.querySelector("#place2")!.innerHTML = time!.innerHTML;
       document.querySelector("time")!.innerHTML = "";
     } catch (error) {
       console.log(error);
