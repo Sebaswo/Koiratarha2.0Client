@@ -5,7 +5,6 @@ import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
 import { User } from "../../src/interfaces/User";
 
 const apiURL = import.meta.env.VITE_API_URL;
-const user: User = {};
 
 const loginButton = document.querySelector(
   "#loginButton"
@@ -28,8 +27,7 @@ loginButton.addEventListener("click", async () => {
         username: usernameInput,
         password: passwordInput,
       })) as LoginMessageResponse;
-      localStorage.setItem("token", loginData.login.token!);
-      user.username = loginData.login.user.username;
+      localStorage.setItem("loginData", JSON.stringify(loginData.login));
       window.location.pathname = './pages/dogPark/index.html'
     } catch (error) {
       const loginInfo = document.querySelector("#loginInfo") as HTMLElement;
@@ -40,3 +38,5 @@ loginButton.addEventListener("click", async () => {
     }
   });
 });
+
+export {user};
