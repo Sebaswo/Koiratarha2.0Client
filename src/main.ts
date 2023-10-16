@@ -66,34 +66,6 @@ const nappula = document.querySelector("#nappula") as HTMLButtonElement;
   }
 })();
 
-// login handling
-// loginButton.addEventListener("click", async () => {
-//   console.log('ree');
-//   const loginForm = document.querySelector("#userContent") as HTMLFormElement;
-//   loginForm.addEventListener("submit", async (e) => {
-//     e.preventDefault();
-//     const username = loginForm.querySelector("#username") as HTMLInputElement;
-//     const password = loginForm.querySelector("#password") as HTMLInputElement;
-
-//     const credentials = {
-//       username: username.value,
-//       password: password.value,
-//     };
-
-//     try {
-//       const loginData = (await doGraphQLFetch(apiURL, login, {
-//         credentials,
-//       })) as LoginMessageResponse;
-//       console.log(loginData);
-//       localStorage.setItem("token", loginData.token!);
-//       user.username = loginData.user.username!;
-//       window.location.href = 'dogPark.html';
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-// });
-
 // logout handling
 // logoutButton.addEventListener("click", () => {
 //   localStorage.removeItem("token");
