@@ -2,7 +2,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { doGraphQLFetch } from "../../src/graphql/fetch";
 import {login} from "../../src/graphql/queries";
 import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
-import { User } from "../../src/interfaces/User";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
@@ -22,21 +21,19 @@ loginButton.addEventListener("click", async () => {
     const usernameInput = usernameForm.value;
     const passwordInput = passwordForm.value;
 
-    try {
-      const loginData = (await doGraphQLFetch(apiURL, login, {
-        username: usernameInput,
-        password: passwordInput,
-      })) as LoginMessageResponse;
-      localStorage.setItem("loginData", JSON.stringify(loginData.login));
-      window.location.pathname = './pages/dogPark/index.html'
-    } catch (error) {
+    const loginData = (await doGraphQLFetch(apiURL, login, {
+      username: usernameInput,
+      password: passwordInput,
+    })) as LoginMessageResponse;
+
+    if (!loginData.login) {
       const loginInfo = document.querySelector("#loginInfo") as HTMLElement;
       if (loginInfo) {
         loginInfo.textContent = 'Väärä tunnus tai salasana';
       }
-      console.log(error);
+    } else {
+      localStorage.setItem("loginData", JSON.stringify(loginData.login));
+      window.location.pathname = './pages/dogPark/index.html'
     }
   });
 });
-
-// export {user};
