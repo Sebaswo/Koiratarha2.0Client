@@ -1,4 +1,4 @@
-import "./style.css";
+// import "./style.css";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { doGraphQLFetch } from "./../../src/graphql/fetch";

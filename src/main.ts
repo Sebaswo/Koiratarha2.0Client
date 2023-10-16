@@ -11,14 +11,14 @@ import {
   //deleteUser,
   //userById,
   //allUsers,
-  addNotification,
-  deleteNotification,
-  notificationsByUser,
+  // addNotification,
+  // deleteNotification,
+  // notificationsByUser,
   //allNotifications,
-  addFavourite,
-  deleteLocation,
-  //allLocations,
-  locationsByUser,
+  // addFavourite,
+  // deleteLocation,
+  // //allLocations,
+  // locationsByUser,
 } from "./graphql/queries";
 // import LoginMessageResponse from "./interfaces/LoginMessageResponse";
 import { User } from "./interfaces/User";
