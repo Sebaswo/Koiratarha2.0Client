@@ -1,6 +1,6 @@
 import { doGraphQLFetch } from "../../src/graphql/fetch"
 import { createUser } from "../../src/graphql/queries"
-import { Credentials } from "../../src/interfaces/Credentials"
+import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
 import { User, UserIdWithToken } from "../../src/interfaces/User"
 
 const apiURL = import.meta.env.VITE_API_URL;
@@ -21,22 +21,19 @@ registerButton.addEventListener("click", async (e) => {
     const password = registerForm.querySelector("#password") as HTMLInputElement;
     console.log(username.value, password.value)
 
-    const variables = {
-        
-            username: username.value,
-            password: password.value
-        
-    };
-    console.log(variables)
-
+    const nameInput = username.value;
+    const passInput = password.value;
+    console.log("api url", apiURL)
     try {
       const registerData = (await doGraphQLFetch(apiURL, createUser, {
-        variables,
-      })) as UserIdWithToken;
-      console.log(registerData);
-      localStorage.setItem("token", registerData.token!);
-    //   user.username = registerData.user.username!;
-      window.location.href = 'pages/dogPark/index.html';
+          user: {
+            username: nameInput,
+            password: passInput
+          }
+      })) as LoginMessageResponse;
+      console.log("tässä", registerData);
+      localStorage.setItem("token", registerData.login.token!);
+      window.location.href = '../../pages/dogPark/index.html';
     } catch (error) {
       console.log(error);
     }

@@ -47,7 +47,6 @@ const user: User = {};
 //   "#navContent2"
 // ) as HTMLElement;
 
-const nappula = document.querySelector("#nappula") as HTMLButtonElement;
 
 // check token
 (async () => {
@@ -77,9 +76,6 @@ const nappula = document.querySelector("#nappula") as HTMLButtonElement;
 //   console.log("testitesti")
 // })
 
-nappula.addEventListener("click", async () => {
-  console.log("TESTII");
-});
 // console.log("TES>TI")
 // const registerForm = document.querySelector("#userContent") as HTMLFormElement;
 // registerForm.addEventListener("submit", async (e) => {
