@@ -1,7 +1,7 @@
 const doGraphQLFetch = async (
   url: string,
   query: string,
-  variables: object,
+  variables?: object,
   token?: string,
 ) => {
   const headers: HeadersInit = {
