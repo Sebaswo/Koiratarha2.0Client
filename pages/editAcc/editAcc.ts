@@ -6,13 +6,15 @@ import ModifyMessageResponse from "../../src/interfaces/ModifyMessageResponse";
 const apiURL = import.meta.env.VITE_API_URL;
 
 const loginData = localStorage.getItem('loginData');
+console.log('login', loginData);
 let userData;
 if (loginData) {
   const parsedData = JSON.parse(loginData);
   userData = parsedData;
 }
-console.log(userData);
-const user = userData.user;
+console.log('user', userData);
+const userToken = userData.token;
+console.log(userToken);
 
 const modifyButton = document.querySelector(
   "#modifyButton"
@@ -29,23 +31,26 @@ modifyButton.addEventListener("click", async () => {
     const usernameInput = usernameForm.value;
     const passwordInput = passwordForm.value;
 
-    const updatedValues = {
-      username: usernameInput,
-      password: passwordInput,
-    }
 
-    try {
-      const modifyData = (await doGraphQLFetch(apiURL, updateUser, {updatedValues})) as ModifyMessageResponse;
-      console.log(modifyData);
-      localStorage.setItem("loginData", JSON.stringify(modifyData));
-      user.username = modifyData.user.username;
-      window.location.pathname = './pages/dogPark/index.html'
-    } catch (error) {
-      const modifyInfo = document.querySelector("#modifyInfo") as HTMLElement;
+    const modifyData = (await doGraphQLFetch(apiURL, updateUser,
+      {user: {
+      username: usernameInput,
+      password: passwordInput
+      }},
+      userToken)) as ModifyMessageResponse;
+
+    console.log(modifyData);
+
+    if (!modifyData.updateUser) {
+      const modifyInfo = document.querySelector("#loginInfo") as HTMLElement;
       if (modifyInfo) {
         modifyInfo.textContent = 'Tietojen päivitys ei onnistunut';
       }
-      console.log(error);
+    } else {
+      modifyData.updateUser.token = userToken;
+      localStorage.setItem("loginData", JSON.stringify(modifyData.updateUser));
+      console.log(modifyData.updateUser);
+      window.location.pathname = './pages/dogPark/index.html'
     }
   });
 });

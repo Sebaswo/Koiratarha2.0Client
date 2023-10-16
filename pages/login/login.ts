@@ -21,24 +21,19 @@ loginButton.addEventListener("click", async () => {
     const usernameInput = usernameForm.value;
     const passwordInput = passwordForm.value;
 
-    try {
-      const loginData = (await doGraphQLFetch(apiURL, login, {
-        username: usernameInput,
-        password: passwordInput,
-      })) as LoginMessageResponse;
+    const loginData = (await doGraphQLFetch(apiURL, login, {
+      username: usernameInput,
+      password: passwordInput,
+    })) as LoginMessageResponse;
 
-      console.log('loginData', loginData);
-      if (!loginData.login) {
-        const loginInfo = document.querySelector("#loginInfo") as HTMLElement;
-        if (loginInfo) {
-          loginInfo.textContent = 'Väärä tunnus tai salasana';
-        }
-      } else {
-        localStorage.setItem("loginData", JSON.stringify(loginData.login));
-        window.location.pathname = './pages/dogPark/index.html'
+    if (!loginData.login) {
+      const loginInfo = document.querySelector("#loginInfo") as HTMLElement;
+      if (loginInfo) {
+        loginInfo.textContent = 'Väärä tunnus tai salasana';
       }
-    } catch (error) {
-      console.log('login ei toimi');
+    } else {
+      localStorage.setItem("loginData", JSON.stringify(loginData.login));
+      window.location.pathname = './pages/dogPark/index.html'
     }
   });
 });
