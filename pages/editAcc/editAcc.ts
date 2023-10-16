@@ -5,16 +5,13 @@ import ModifyMessageResponse from "../../src/interfaces/ModifyMessageResponse";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-const loginData = localStorage.getItem('loginData');
-console.log('login', loginData);
-let userData;
-if (loginData) {
-  const parsedData = JSON.parse(loginData);
-  userData = parsedData;
+const userToken = localStorage.getItem('token');
+console.log('token', userToken);
+let token;
+if (userToken) {
+  token = JSON.parse(userToken);
 }
-console.log('user', userData);
-const userToken = userData.token;
-console.log(userToken);
+console.log('token', token);
 
 const modifyButton = document.querySelector(
   "#modifyButton"
@@ -37,7 +34,7 @@ modifyButton.addEventListener("click", async () => {
       username: usernameInput,
       password: passwordInput
       }},
-      userToken)) as ModifyMessageResponse;
+      token)) as ModifyMessageResponse;
 
     console.log(modifyData);
 
@@ -47,9 +44,6 @@ modifyButton.addEventListener("click", async () => {
         modifyInfo.textContent = 'Tietojen päivitys ei onnistunut';
       }
     } else {
-      modifyData.updateUser.token = userToken;
-      localStorage.setItem("loginData", JSON.stringify(modifyData.updateUser));
-      console.log(modifyData.updateUser);
       window.location.pathname = './pages/dogPark/index.html'
     }
   });
