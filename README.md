@@ -1,4 +1,4 @@
-# SSSF-front
+# Koiratarha2.0 front
 
 Created with [Vite](https://vitejs.dev/guide/)
 
