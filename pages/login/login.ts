@@ -28,13 +28,15 @@ loginButton.addEventListener("click", async () => {
         username: usernameInput,
         password: passwordInput,
       })) as LoginMessageResponse;
-      console.log(loginData);
-      console.log(loginData.login.message);
       localStorage.setItem("token", loginData.login.token!);
       user.username = loginData.login.user.username;
+      window.location.pathname = './pages/dogPark/index.html'
     } catch (error) {
+      const loginInfo = document.querySelector("#loginInfo") as HTMLElement;
+      if (loginInfo) {
+        loginInfo.textContent = 'Väärä tunnus tai salasana';
+      }
       console.log(error);
     }
   });
-  window.location.pathname = './pages/dogPark/index.html'
 });
