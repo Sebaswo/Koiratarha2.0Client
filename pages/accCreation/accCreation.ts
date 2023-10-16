@@ -1,11 +1,12 @@
 import { doGraphQLFetch } from "../../src/graphql/fetch"
 import { allUsers, createUser, userByUsername } from "../../src/graphql/queries"
 import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
-import { User, UserIdWithToken } from "../../src/interfaces/User"
+import RegisterMessageResponse from "../../src/interfaces/RegisterMessageResponse"
+import { UserAndToken } from "../../src/interfaces/User"
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-const user: User = {};
+const user: UserAndToken = {};
 const registerButton = document.querySelector(
   "#registerButton"
 ) as HTMLElement;
@@ -30,9 +31,10 @@ registerButton.addEventListener("click", async (e) => {
             username: nameInput,
             password: passInput
           }
-      })) as LoginMessageResponse;
-      localStorage.setItem("token", registerData.login?.token!);
-      window.location.href = '../../pages/dogPark/index.html';
+      })) as RegisterMessageResponse;
+      console.log("REFG: ",registerData, "   USER: ", registerData.createUser.data , "   TOKEN: ", registerData.createUser.token, "   MESG: ", registerData.createUser.message)
+      // localStorage.setItem("token", registerData.login.token!);
+      // window.location.href = '../../pages/dogPark/index.html';
     } else {
       const regInfo = document.querySelector("#regInfo") as HTMLElement;
       if (regInfo) {

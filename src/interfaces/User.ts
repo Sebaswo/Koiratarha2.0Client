@@ -17,4 +17,10 @@ interface UserIdWithToken {
   token: string;
 }
 
-export type { User, UserLogin, TokenUser, UserIdWithToken };
+interface UserAndToken {
+  username?: string;
+  password?: string;
+  token?: string;
+}
+
+export type { User, UserLogin, TokenUser, UserIdWithToken, UserAndToken};
