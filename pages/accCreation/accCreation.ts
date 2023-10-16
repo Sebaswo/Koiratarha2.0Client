@@ -1,12 +1,11 @@
 import { doGraphQLFetch } from "../../src/graphql/fetch"
-import { allUsers, createUser, userByUsername } from "../../src/graphql/queries"
+import { allUsers, createUser, login, userByUsername } from "../../src/graphql/queries"
 import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
 import RegisterMessageResponse from "../../src/interfaces/RegisterMessageResponse"
-import { UserAndToken } from "../../src/interfaces/User"
+import { User } from "../../src/interfaces/User"
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-const user: UserAndToken = {};
 const registerButton = document.querySelector(
   "#registerButton"
 ) as HTMLElement;
@@ -26,14 +25,17 @@ registerButton.addEventListener("click", async (e) => {
     }))
 
     if (!existingUser.userByUsername) {
-      const registerData = (await doGraphQLFetch(apiURL, createUser, {
+      (await doGraphQLFetch(apiURL, createUser, {
           user: {
             username: nameInput,
             password: passInput
           }
       })) as RegisterMessageResponse;
-      console.log("REFG: ",registerData, "   USER: ", registerData.createUser.data , "   TOKEN: ", registerData.createUser.token, "   MESG: ", registerData.createUser.message)
-      // localStorage.setItem("token", registerData.login.token!);
+      const loginData = (await doGraphQLFetch(apiURL, login, {
+        username: nameInput,
+        password: passInput,
+      })) as LoginMessageResponse;
+      localStorage.setItem("token", loginData.login.token!);
       // window.location.href = '../../pages/dogPark/index.html';
     } else {
       const regInfo = document.querySelector("#regInfo") as HTMLElement;
