@@ -36,7 +36,7 @@ registerButton.addEventListener("click", async (e) => {
         password: passInput,
       })) as LoginMessageResponse;
       localStorage.setItem("token", loginData.login.token!);
-      // window.location.href = '../../pages/dogPark/index.html';
+      window.location.href = '../../pages/dogPark/index.html';
     } else {
       const regInfo = document.querySelector("#regInfo") as HTMLElement;
       if (regInfo) {
