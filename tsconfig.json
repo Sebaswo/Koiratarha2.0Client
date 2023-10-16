@@ -4,7 +4,6 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
@@ -14,7 +13,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["vite/client"]
   },
   "include": ["./*.js", "src/**/*.ts", "test/**/*.ts", "vite-env.d.ts"]
 }

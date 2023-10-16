@@ -75,6 +75,14 @@ query Users {
 }
 `;
 
+const userByUsername = `
+query UserByUsername($username: String!) {
+  userByUsername(username: $username) {
+    username
+  }
+}
+`;
+
 //notification queries
 const addNotification = `
 mutation AddNotification($locName: String!, $time: DateTime!) {
@@ -167,6 +175,7 @@ export {
   updateUser,
   deleteUser,
   userById,
+  userByUsername,
   allUsers,
   addNotification,
   deleteNotification,

@@ -1,7 +1,7 @@
 const doGraphQLFetch = async (
   url: string,
   query: string,
-  variables: object,
+  variables?: object,
   token?: string,
 ) => {
   const headers: HeadersInit = {
@@ -20,8 +20,10 @@ const doGraphQLFetch = async (
       variables,
     }),
   });
+
   if (!response.ok) throw new Error(response.statusText);
   const json = await response.json();
+  console.log(json)
   return json.data;
 };
 
