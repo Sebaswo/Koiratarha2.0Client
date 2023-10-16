@@ -32,7 +32,7 @@ loginButton.addEventListener("click", async () => {
         loginInfo.textContent = 'Väärä tunnus tai salasana';
       }
     } else {
-      localStorage.setItem("loginData", JSON.stringify(loginData.login));
+      localStorage.setItem("token", JSON.stringify(loginData.login.token));
       window.location.pathname = './pages/dogPark/index.html'
     }
   });
