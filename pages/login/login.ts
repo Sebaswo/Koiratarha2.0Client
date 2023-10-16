@@ -39,4 +39,3 @@ loginButton.addEventListener("click", async () => {
   });
 });
 
-export {user};
