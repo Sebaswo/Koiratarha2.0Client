@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     map.setView([crd.latitude, crd.longitude], 13);
 
     const ownLocation = addMarker(crd, 'Olen tässä!');
+    ownLocation.setOpacity(1)
     
 
     getLocations(crd).then(function(pointsOfInterest) {
@@ -113,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function addMarker(crd: Coordinates, text: string): L.Marker {
-  const m =  L.marker([crd.latitude, crd.longitude]).addTo(markerGroup).bindPopup(text);
+  const m =  L.marker([crd.latitude, crd.longitude]).addTo(markerGroup).bindPopup(text).setOpacity(0.85);
   markerGroup.addLayer(m);
   return m;
 }

@@ -95,18 +95,31 @@
         <div id="notifications" class="row justify-content-center text-center p-2">
           <div class="col-sm-6">
             <p>Muistutukset:</p>
-            <div id="notificationsAll" class="p-2">
+            <table id="notificationsAll" class="p-2">
               <div id="place1" class="col-sm-2"></div>
               <div id="place2" class="col-sm-2"></div>
-            </div>
+            </table>
           </div>
-          <div class="center">
-            <input type="text" id="time" placeholder="Ajankohta">
+          <div class="center" id="timeForm">
+            <input type="datetime-local" id="time" placeholder="Ajankohta">
           </div>
           <div class="center p-2">
             <button id="addNotification">Lisää muistutus</button>
             <button id="removeNotification">Poista muistutus</button>
           </div>
+        </div>
+
+        <div id="favourites">
+            <div id="placeInfo" class="row justify-content-center text-center p-2">
+                <div class="col-sm-6">
+                  <p>Suosikkipaikat</p>
+                  <form method='post' name='form'>
+                    <ul id="favList">
+
+                    </ul>
+                  </form>
+              </div>
+            </div>
         </div>
     </div>
 
