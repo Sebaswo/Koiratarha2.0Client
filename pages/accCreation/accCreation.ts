@@ -1,8 +1,7 @@
 import { doGraphQLFetch } from "../../src/graphql/fetch"
-import { allUsers, createUser, login, userByUsername } from "../../src/graphql/queries"
+import { createUser, login, userByUsername } from "../../src/graphql/queries"
 import LoginMessageResponse from "../../src/interfaces/LoginMessageResponse";
 import RegisterMessageResponse from "../../src/interfaces/RegisterMessageResponse"
-import { User } from "../../src/interfaces/User"
 
 const apiURL = import.meta.env.VITE_API_URL;
 

@@ -128,7 +128,7 @@ button:hover {
     justify-content: center;
 }
 
-#textsOfPage, #notifications, #placeInfoGroup {
+#textsOfPage, #notifications, #placeInfoGroup, #favourites {
     display: flex;
     flex-wrap: wrap;
     background: #EDDCD2;
@@ -209,3 +209,44 @@ span.coral {
     border-radius: 5px;
 }
 
+table td {
+    padding: 10px;
+    border-top: thin solid;
+    border-bottom: thin solid;
+}
+
+#timeForm {
+    padding: 20px
+}
+
+#addNotification, #faveBtn {
+    margin-right: 10px;
+}
+
+#removeNotification, #removeFaveBtn {
+    margin-left: 10px;
+}
+
+li {
+    list-style-type: none;
+    padding-right:
+}
+
+ul {
+    padding-left: 0;
+}
+
+#favList {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: auto;
+}
+
+#favList li {
+    padding-right: 50px;
+    text-align: left;
+}
+
+#placeInfo form .col-sm-6 {
+    max-width: 1;
+}

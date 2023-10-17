@@ -1,32 +1,22 @@
-// import "./style.css";
 import "leaflet/dist/leaflet.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { doGraphQLFetch } from "./../../src/graphql/fetch";
 import {
-  //updateUser,
-  //userById,
-  //allUsers,
   addNotification,
   deleteNotification,
   notificationsByUser,
-  //allNotifications,
   addFavourite,
   deleteLocation,
-  //allLocations,
   locationsByUser,
 } from "./../../src/graphql/queries";
-import { User } from "./../../src/interfaces/User";
-import { FavouriteLocation } from "../../src/interfaces/FavouriteLocation"
 
 // Global variables
 const apiURL = import.meta.env.VITE_API_URL;
-// const socketURL = import.meta.env.VITE_SOCKET_URL;
 const token = localStorage.getItem("token")!;
 const userId = localStorage.getItem("userId");
 
 updateFavourites()
 updateNotifications()
-const user: User = {};
 
 // notification handling
 const addNotificationBtn = document.querySelector("#addNotification");
@@ -37,28 +27,17 @@ addNotificationBtn!.addEventListener("click", async () => {
   const locName = document.querySelector("#name")?.textContent;
   const time = timeForm.querySelector("#time") as HTMLInputElement;
   const timeInput = time.value;
-  // try {
-  //   const notificationId = await doGraphQLFetch(
-  //     apiURL,
-  //     notificationsByUser,
-  //     { userId },
-  //     token!
-  //   );
-  console.log("AIKA AIKA ", timeInput)
-    try {
-      const notification = await doGraphQLFetch(
-        apiURL,
-        addNotification,
-        {
-          locName: locName,
-          time: timeInput
-        },
-        token!
-      );
-      console.log(notification);
-      // document.querySelector("#place1")!.innerHTML = locName!.innerHTML;
-      // document.querySelector("#place2")!.innerHTML = time!.innerHTML;
-      // document.querySelector("time")!.innerHTML = "";
+  const utcTimeDate = new Date(timeInput + "Z");
+  try {
+    await doGraphQLFetch(
+      apiURL,
+      addNotification,
+      {
+        locName: locName,
+        time: utcTimeDate
+      },
+      token!
+    );
     } catch (error) {
       console.log(error);
     }
@@ -74,13 +53,12 @@ removeNotificationBtn!.addEventListener("click", async () => {
     }
   }
     try {
-      const removeNotification = await doGraphQLFetch(
+      await doGraphQLFetch(
         apiURL,
         deleteNotification,
         { deleteNotificationId: noteToDelete },
         token!
       );
-      console.log(removeNotification);
     } catch (error) {
       console.log(error);
     }
@@ -95,17 +73,16 @@ favouriteButton!.addEventListener("click", async () => {
   const locAddress = document.querySelector("#address")?.textContent;
   const locCity = document.querySelector("#city")?.textContent;
   try {
-      const favouriteLocation = (await doGraphQLFetch(
-        apiURL,
-        addFavourite,
-        { 
-          locName: locName,
-          address: locAddress,
-          city: locCity 
-        },
-        token
-      )) as FavouriteLocation;
-      console.log(favouriteLocation);
+    await doGraphQLFetch(
+      apiURL,
+      addFavourite,
+      { 
+        locName: locName,
+        address: locAddress,
+        city: locCity 
+      },
+      token
+    )
     } catch (error) {
       console.log(error);
     }
@@ -131,19 +108,19 @@ removeFaveButton!.addEventListener("click", async () => {
   }
 
   try {
-    const deleteFavourite = await doGraphQLFetch(
+    await doGraphQLFetch(
       apiURL,
       deleteLocation,
       { deleteFavouriteId: locationId },
       token!
     );
-    console.log(deleteFavourite);
   } catch (error) {
     console.log(error);
   }
   updateFavourites();
 });
 
+//Updating UI
 async function updateNotifications() {
   const notifications = await doGraphQLFetch(
     apiURL,
@@ -151,33 +128,28 @@ async function updateNotifications() {
     { userId: userId },
     token!
   );
-  console.log(notifications)
-
-      // Storing the table element
+  // This code found from https://stackoverflow.com/questions/66981149/dynamic-table-with-2-columns-based-on-array-length
   const tableElement = document.querySelector('#notificationsAll');
 
-  // Generated HTML
   let generated = '';
 
-  // Iterate over the list
   for(let i = 0; i < notifications.notificationsByUser.length; i++) {
     let dat = notifications.notificationsByUser[i].loc_name;
     let time = notifications.notificationsByUser[i].time;
     let id = notifications.notificationsByUser[i].id;
-    console.log("IDDDD", id)
-    // Generating HTML with data
+    const isoTime = new Date(time).toLocaleDateString([], {hour:'2-digit', minute: '2-digit'});
+    
     generated += `
       <tr>
         <td>${dat}</td>
-        <td>${time}</td>
+        <td>${isoTime}</td>
         <td><input type="radio" name="note" value="${id}"></td>
       </tr>`
   }
 
-  // Appending it to the <table> element
   tableElement!.innerHTML = generated;
 }
-
+//Updating UI
 async function updateFavourites() {
   const locations = await doGraphQLFetch(
     apiURL,
@@ -185,24 +157,19 @@ async function updateFavourites() {
     { userId: userId },
     token!
   );
-  console.log(locations);
-  // Storing the table element
+  // This code found from https://stackoverflow.com/questions/66981149/dynamic-table-with-2-columns-based-on-array-length
   const tableElement = document.querySelector('#favList');
 
-  // Generated HTML
   let generated = '';
 
-  // Iterate over the list
   for(let i = 0; i < locations.favouritesByUser.length; i++) {
     let dat = locations.favouritesByUser[i].loc_name;
     
-    // Generating HTML with data
     generated += `
       <li>
         <p>${dat}</p>
       </li>`
   }
 
-  // Appending it to the <table> element
   tableElement!.innerHTML = generated;
 }
