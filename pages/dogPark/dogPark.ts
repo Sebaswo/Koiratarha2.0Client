@@ -8,6 +8,7 @@ import {
   addFavourite,
   deleteLocation,
   locationsByUser,
+  userById,
 } from "./../../src/graphql/queries";
 
 // Global variables
@@ -17,6 +18,21 @@ const userId = localStorage.getItem("userId");
 
 updateFavourites()
 updateNotifications()
+
+//admin options
+const isAdmin = (await doGraphQLFetch(
+  apiURL,
+  userById,
+  {userByIdId: userId}
+));
+
+const adminListItem = document.getElementById("navContentPageAdmin") as HTMLLIElement;
+
+if (isAdmin.userById.username === 'admin') {
+  adminListItem!.style.display = 'block'; // Show the element
+} else {
+  adminListItem!.style.display = 'none'; // Hide the element
+}
 
 // notification handling
 const addNotificationBtn = document.querySelector("#addNotification");
@@ -76,10 +92,10 @@ favouriteButton!.addEventListener("click", async () => {
     await doGraphQLFetch(
       apiURL,
       addFavourite,
-      { 
+      {
         locName: locName,
         address: locAddress,
-        city: locCity 
+        city: locCity
       },
       token
     )
@@ -138,7 +154,7 @@ async function updateNotifications() {
     let time = notifications.notificationsByUser[i].time;
     let id = notifications.notificationsByUser[i].id;
     const isoTime = new Date(time).toLocaleDateString([], {hour:'2-digit', minute: '2-digit'});
-    
+
     generated += `
       <tr>
         <td>${dat}</td>
@@ -164,7 +180,7 @@ async function updateFavourites() {
 
   for(let i = 0; i < locations.favouritesByUser.length; i++) {
     let dat = locations.favouritesByUser[i].loc_name;
-    
+
     generated += `
       <li>
         <p>${dat}</p>

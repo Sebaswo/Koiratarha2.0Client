@@ -5,11 +5,12 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Koiratarha - Kirjautumistietojen muokkaus</title>
+    <script type="module" src="../../pages/editAccAdmin/editAccAdmin.ts"></script>
     <link href="../../appStyle.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com/%22%3E">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 </head>
@@ -35,28 +36,17 @@
     <br>
 
     <div class="container-fluid">
-        <div class="row justify-content-center text-center">
-            <div id="userContent">
-                <div class="row p-4">
-                    <p>Alla on lista palvelun käyttäjistä. Käyttäjä on mahdollista poistaa valitsemalla se listasta. Poistettua käyttäjää ei ole mahdollista palauttaa.</p>
-                </div>
-                <div class="p-4">
+      <div class="row justify-content-center text-center">
+          <div id="userContent">
+              <div class="row p-4">
+                  <p>Alla on lista palvelun käyttäjistä. Käyttäjä on mahdollista poistaa valitsemalla se listasta. Poistettua käyttäjää ei ole mahdollista palauttaa.</p>
+              </div>
+              <div class="p-4">
                     <p>Käyttäjät:</p>
-                    <div class="form-check container col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Käyttäjä1
-                        </label>
-                    </div>          
-                    <div class="form-check container col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        <label class="form-check-label" for="flexCheckDefault">
-                          Käyttäjä2
-                        </label>
-                    </div>            
+                    <div id="userList"></div>
                 </div>
                 <div class="row p-4">
-                    <button type="submit" id="loginButton" onclick="login()">Poista</button>
+                    <button type="submit" id="deleteUserButton">Poista</button>
                 </div>
             </div>
         </div>
@@ -74,12 +64,7 @@
         </div>
     </footer>
 
-    <script>
-        function login() {
-            
-        }
-    </script>
     <script type="module" src="/pages/editAccAdmin/editAccAdmin.ts"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
