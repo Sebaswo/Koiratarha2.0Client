@@ -53,7 +53,7 @@
     border: 3px solid #F0EFEB;
 }
 
-#navContentPage {
+#navContentPage, #navContentPageLogout {
     background: #B7B7A4;
     border: 3px solid #F0EFEB;
 }
@@ -229,7 +229,6 @@ table td {
 
 li {
     list-style-type: none;
-    padding-right:
 }
 
 ul {
