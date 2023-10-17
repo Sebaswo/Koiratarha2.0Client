@@ -27,9 +27,11 @@ const isAdmin = (await doGraphQLFetch(
 ));
 
 const adminListItem = document.getElementById("navContentPageAdmin") as HTMLLIElement;
+const userListItem = document.getElementById("navContentPageUser") as HTMLLIElement;
 
 if (isAdmin.userById.username === 'admin') {
   adminListItem!.style.display = 'block'; // Show the element
+  userListItem!.style.display = 'none';
 } else {
   adminListItem!.style.display = 'none'; // Hide the element
 }
