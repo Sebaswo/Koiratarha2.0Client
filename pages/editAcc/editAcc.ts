@@ -5,12 +5,11 @@ import ModifyMessageResponse from "../../src/interfaces/ModifyMessageResponse";
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-const userToken = localStorage.getItem('token');
-console.log('token', userToken);
-let token;
-if (userToken) {
-  token = JSON.parse(userToken);
+const token = localStorage.getItem('token');
+if (!token) {
+  throw Error('user does not have a token')
 }
+
 console.log('token', token);
 
 const modifyButton = document.querySelector(
