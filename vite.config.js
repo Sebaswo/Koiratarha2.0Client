@@ -17,7 +17,7 @@ export default {
         editAccAdmin: resolve(__dirname, 'pages/editAccAdmin/index.html'),
         gallery: resolve(__dirname, 'pages/gallery/index.html'),
         login: resolve(__dirname, 'pages/login/index.html'),
-        uploadPic: resolve(__dirname, 'pages/uploadPic/index.html')
+        // uploadPic: resolve(__dirname, 'pages/uploadPic/index.html')
       }
     }
   }
