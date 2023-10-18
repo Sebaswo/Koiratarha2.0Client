@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import {doGraphQLFetch} from "../../src/graphql/fetch";
-import {updateUser} from "../../src/graphql/queries";
+import {updateUser, userByUsername} from "../../src/graphql/queries";
 import ModifyMessageResponse from "../../src/interfaces/ModifyMessageResponse";
 
 const apiURL = import.meta.env.VITE_API_URL;
@@ -27,23 +27,36 @@ modifyButton.addEventListener("click", async () => {
     const usernameInput = usernameForm.value;
     const passwordInput = passwordForm.value;
 
+    const existingUser = (await doGraphQLFetch(apiURL, userByUsername, {
+      username: usernameInput
+    }))
 
-    const modifyData = (await doGraphQLFetch(apiURL, updateUser,
-      {user: {
-      username: usernameInput,
-      password: passwordInput
-      }},
-      token)) as ModifyMessageResponse;
+    console.log("DJDJDHJHDHJHJD", existingUser)
 
-    console.log(modifyData);
+    if (!existingUser.userByUsername) {
+      const modifyData = (await doGraphQLFetch(apiURL, updateUser,
+        {user: {
+        username: usernameInput,
+        password: passwordInput
+        }},
+        token)) as ModifyMessageResponse;
 
-    if (!modifyData.updateUser) {
-      const modifyInfo = document.querySelector("#loginInfo") as HTMLElement;
-      if (modifyInfo) {
-        modifyInfo.textContent = 'Tietojen päivitys ei onnistunut';
+      console.log(modifyData);
+
+      if (!modifyData.updateUser) {
+        const modifyInfo = document.querySelector("#loginInfo") as HTMLElement;
+        if (modifyInfo) {
+          modifyInfo.textContent = 'Tietojen päivitys ei onnistunut';
+        }
+      } else {
+        window.location.pathname = './pages/dogPark/index.html'
       }
     } else {
-      window.location.pathname = './pages/dogPark/index.html'
+      console.log("VIRGEEE")
+      const modifyInfo = document.querySelector("#modifyInfo") as HTMLElement;
+      if (modifyInfo) {
+        modifyInfo.textContent = `Käyttäjätunnus virheellinen. Valitse toinen.`;
+      }
     }
   });
 });
