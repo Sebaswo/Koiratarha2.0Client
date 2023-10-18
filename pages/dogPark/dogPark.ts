@@ -62,6 +62,7 @@ addNotificationBtn!.addEventListener("click", async () => {
     updateNotifications()
 });
 
+
 removeNotificationBtn!.addEventListener("click", async () => {
   let noteToDelete: string = "";
   const radioButtons = document.querySelectorAll<HTMLInputElement>('input[name="note"]')
