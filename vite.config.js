@@ -11,6 +11,7 @@ export default {
     target: 'esnext',
     rollupOptions: {
       input: {
+        main: resolve(__dirname, 'index.html'),
         accCreation: resolve(__dirname, 'pages/accCreation/index.html'),
         dogPark: resolve(__dirname, 'pages/dogPark/index.html'),
         editAcc: resolve(__dirname, 'pages/editAcc/index.html'),
