@@ -4,7 +4,6 @@ import {deleteUser, userById} from "../../src/graphql/queries";
 import {allUsers} from "../../src/graphql/queries";
 
 const apiURL = import.meta.env.VITE_API_URL;
-console.log(apiURL);
 
 const token = localStorage.getItem('token');
 if (!token) {
@@ -34,8 +33,6 @@ deleteUserButton.addEventListener('click', async () => {
       break;
     }
   }
-
-  console.log(selectedId);
 
   if (selectedId) {
     const deletedUser = (await doGraphQLFetch(

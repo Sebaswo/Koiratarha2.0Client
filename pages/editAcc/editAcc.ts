@@ -10,14 +10,12 @@ if (!token) {
   throw Error('user does not have a token')
 }
 
-console.log('token', token);
 
 const modifyButton = document.querySelector(
   "#modifyButton"
 ) as HTMLButtonElement;
 
 modifyButton.addEventListener("click", async () => {
-  console.log('api', apiURL);
   const modifyForm = document.querySelector("#userContent") as HTMLFormElement;
   modifyForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -31,8 +29,6 @@ modifyButton.addEventListener("click", async () => {
       username: usernameInput
     }))
 
-    console.log("DJDJDHJHDHJHJD", existingUser)
-
     if (!existingUser.userByUsername) {
       const modifyData = (await doGraphQLFetch(apiURL, updateUser,
         {user: {
@@ -40,8 +36,6 @@ modifyButton.addEventListener("click", async () => {
         password: passwordInput
         }},
         token)) as ModifyMessageResponse;
-
-      console.log(modifyData);
 
       if (!modifyData.updateUser) {
         const modifyInfo = document.querySelector("#loginInfo") as HTMLElement;
@@ -52,7 +46,6 @@ modifyButton.addEventListener("click", async () => {
         window.location.pathname = './pages/dogPark/index.html'
       }
     } else {
-      console.log("VIRGEEE")
       const modifyInfo = document.querySelector("#modifyInfo") as HTMLElement;
       if (modifyInfo) {
         modifyInfo.textContent = `Käyttäjätunnus virheellinen. Valitse toinen.`;
