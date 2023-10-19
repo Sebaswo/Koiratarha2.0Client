@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const customIcon = L.icon({ iconUrl: "images/img/target50.png" });
+const customIcon = L.icon({ iconUrl: "../../images/img/target50.png" });
 const customMarker = { icon: customIcon };
 
 function addMarker(crd: Coordinates, text: string): L.Marker {
