@@ -11,7 +11,7 @@ The app uses a client (Vite), GraphQL API server, REST API AUTH server and a NoS
 # Get started:
 
 - Clone this repo
-- Clone the AUTH server: https://github.com/MinaSofi/Koiratarha2.0_Auth
+- Clone the AUTH server: https://github.com/Sebaswo/Koiratarha2.0Auth
 - Clone the client: https://github.com/Sebaswo/Koiratarha2.0Client
 - Set up .env file for all based on .env.sample
     - Remember to use different ports
@@ -24,3 +24,9 @@ The app uses a client (Vite), GraphQL API server, REST API AUTH server and a NoS
     >role: 'admin'
 - run `npm i` on all repos
 - run `npm run dev` on all repos
+
+# Deployed at
+
+https://koiratarha2.azurewebsites.net/
+
+The app and backend takes up to a couple of minutes to warm up.
