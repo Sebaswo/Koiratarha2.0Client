@@ -1,5 +1,6 @@
 import * as L from "leaflet";
 import { Coordinates, PointOfInterest } from "../interfaces/Coordinates";
+import iconUrl from "../../images/img/target50.png";
 
 let btnChoice: String;
 const map = L.map("map").setView([60.172659, 24.926596], 11);
@@ -113,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const customIcon = L.icon({ iconUrl: "../../images/img/target50.png" });
+const customIcon = L.icon({ iconUrl });
 const customMarker = { icon: customIcon };
 
 function addMarker(crd: Coordinates, text: string): L.Marker {
