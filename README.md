@@ -12,7 +12,7 @@ The app uses a client (Vite), GraphQL API server, REST API AUTH server and a NoS
 
 - Clone this repo
 - Clone the AUTH server: https://github.com/Sebaswo/Koiratarha2.0Auth
-- Clone the client: https://github.com/Sebaswo/Koiratarha2.0Client
+- Clone the GraphQL API: https://github.com/Sebaswo/Koiratarha2.0Api
 - Set up .env file for all based on .env.sample
     - Remember to use different ports
     - Recommended to use MongoDB
@@ -22,8 +22,12 @@ The app uses a client (Vite), GraphQL API server, REST API AUTH server and a NoS
     >password: '12345'
     >
     >role: 'admin'
-- run `npm i` on all repos
-- run `npm run dev` on all repos
+- Run `npm i` on all repos
+- Run `npm run dev` on all repos
+
+- To check if app can be built
+    - `npm run build`
+    - `npm run preview`
 
 # Deployed at
 
